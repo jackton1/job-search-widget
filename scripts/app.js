@@ -3,6 +3,13 @@ searchModule = function (parameters) {
     var exports = parameters.exports;
     exports.checkInput = function () {
       $('.form__input').on("change keyup blur input",function(){
+          var isIE = function () {
+              var userAgent = navigator.userAgent;
+              return userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident/") > -1 || userAgent.indexOf("Edge/") > -1;
+          };
+          if(isIE()){
+              $('.close-icon').css("display", "none");
+          }
           if ($(this).val() !== '' && $('#search_box').val().length > 0) {
               $('.form__submit').prop("disabled", false);
           } else {
@@ -40,8 +47,8 @@ searchModule = function (parameters) {
         });
         $button = $('<button>').attr({
             class:"close-icon",
-            type: "reset"
-        });
+            type: "reset",
+        }).css("display", "hidden");
         $submit = $('<input>').attr({
             type: "submit",
             class: "form__submit",
